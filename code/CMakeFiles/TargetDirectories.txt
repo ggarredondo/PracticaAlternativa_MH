@@ -1,0 +1,6 @@
+/home/rullow/PracticaAlternativa_MH/code/CMakeFiles/rebuild_cache.dir
+/home/rullow/PracticaAlternativa_MH/code/CMakeFiles/testsolis.dir
+/home/rullow/PracticaAlternativa_MH/code/CMakeFiles/cec17_test_func.dir
+/home/rullow/PracticaAlternativa_MH/code/CMakeFiles/testrandom.dir
+/home/rullow/PracticaAlternativa_MH/code/CMakeFiles/edit_cache.dir
+/home/rullow/PracticaAlternativa_MH/code/CMakeFiles/test.dir
