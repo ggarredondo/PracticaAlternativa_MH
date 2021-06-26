@@ -12,18 +12,19 @@ void printv(std::vector<T> v) {
 }
 
 // Implementación del algoritmo muscular
-std::vector<double> muscular(const std::vector<double>& ini, size_t n_muscles, size_t max_evals, size_t seed)
+std::vector<double> muscular(const std::vector<double>& ini, size_t max_evals, size_t seed)
 {
     std::vector<double> sol;
-	std::vector<size_t> distribucion; // distribución de los músculos (donde empieza cada músculo)
-	size_t ant = 0, actual;
-    std::uniform_int_distribution<size_t> dis(1, ini.size()/n_muscles);
-    std::mt19937 gen(seed);
+	std::vector<size_t> distribucion; // distribución de los músculos (indica dónde comienza cada músculo)
+	size_t actual = 0, size = ini.size();
+    std::uniform_int_distribution<size_t> dis(1, size*0.5); // un músculo será por lo menos de tamaño 1 y como máximo
+    std::mt19937 gen(seed);                                       // la mitad del vector solución
 
-    for (size_t i = 0; i < n_muscles-1; ++i) {
-        actual = dis(gen) + ant;
+    // obtención de la distribución de músculos
+    actual += dis(gen);
+    while (actual < size) {
         distribucion.push_back(actual);
-        ant = actual;
+        actual += dis(gen);
     }
 
     return sol;
@@ -32,5 +33,5 @@ std::vector<double> muscular(const std::vector<double>& ini, size_t n_muscles, s
 // Uso del algoritmo
 int main() 
 {
-    muscular(std::vector<double>(15), 5, 10, time(NULL));
+    muscular(std::vector<double>(15), 10, time(NULL));
 }
