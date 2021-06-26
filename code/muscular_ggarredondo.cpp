@@ -14,21 +14,30 @@ void printv(std::vector<T> v) {
 // Implementación del algoritmo muscular
 std::vector<double> muscular(const std::vector<double>& ini, size_t max_evals, size_t seed)
 {
-    std::vector<double> sol;
-	std::vector<size_t> distribucion; // distribución de los músculos (indica dónde comienza cada músculo)
-	size_t actual = 0, size = ini.size();
-    std::uniform_int_distribution<size_t> dis(1, size*0.5); // un músculo será por lo menos de tamaño 1 y como máximo
-    std::mt19937 gen(seed);                                       // la mitad del vector solución
-
     // obtención de la distribución de músculos
-    actual += dis(gen);
+    std::vector<size_t> distribucion; // distribución de los músculos (indica dónde comienza cada músculo)
+    distribucion.push_back(0); // el primer músculo siempre empieza en el 0
+    size_t actual = 0, size = ini.size();
+    std::uniform_int_distribution<size_t> muscle_dis(1, size*0.5); // un músculo será por lo menos de tamaño 1 y como máximo
+    std::mt19937 gen(seed);                                              // la mitad del vector solución
+
+    actual += muscle_dis(gen);
     while (actual < size) {
         distribucion.push_back(actual);
-        actual += dis(gen);
+        actual += muscle_dis(gen);
+    }
+
+    // minimización del fitness
+    std::vector<double> sol = ini;
+    std::uniform_real_distribution<double> dis(-100,100); // rango de valores del vector solución [-100, 100]
+    for (size_t ev = 0; ev < max_evals;) {
+        size_t index = rand()%distribucion.size(); // escoger un músculo aleatorio a entrenar
+        
     }
 
     return sol;
 }
+
 
 // Uso del algoritmo
 int main() 
