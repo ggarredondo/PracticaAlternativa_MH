@@ -1,0 +1,7 @@
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/cec17_test_func.dir
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/muscular.dir
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/test.dir
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/testrandom.dir
+/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug/CMakeFiles/testsolis.dir
