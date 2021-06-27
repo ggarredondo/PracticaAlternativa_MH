@@ -12,7 +12,7 @@ void printv(std::vector<T> v) {
 }
 
 // Implementación del algoritmo muscular
-std::vector<double> muscular(const std::vector<double>& ini, size_t max_fails, size_t max_evals, std::mt19937& gen)
+double muscular(std::vector<double>& ini, size_t max_fails, size_t max_evals, std::mt19937& gen)
 {
     // obtención de la distribución de músculos
     std::vector<size_t> distribucion; // distribución de los músculos (indica dónde comienza cada músculo)
@@ -28,12 +28,14 @@ std::vector<double> muscular(const std::vector<double>& ini, size_t max_fails, s
     }
 
     // minimización del fitness
+    size_t n_muscles = distribucion.size();
+    distribucion.push_back(dim); // se añade la dimensión al final para saber dónde termina el vector solución
     std::vector<double> mejor = ini, aux;
     double f_mejor = cec17_fitness(&mejor[0]), f_aux;
     std::uniform_real_distribution<double> dis(-100,100); // rango de valores del vector solución [-100, 100]
     for (size_t ev = 1; ev < max_evals;) {
-        size_t index = rand()%distribucion.size(); // escoger un músculo aleatorio a entrenar
-        for (size_t i = distribucion[index], fails = 0; ev < max_evals && fails < max_fails; i = (i+1)%distribucion[index]) {
+        size_t index = rand()%n_muscles; // escoger un músculo aleatorio a entrenar
+        for (size_t i = distribucion[index], fails = 0; ev < max_evals && fails < max_fails; i = (i+1)%distribucion[index+1]) {
             aux = mejor;
             aux[i] = dis(gen);
             f_aux = cec17_fitness(&aux[0]);
@@ -46,7 +48,8 @@ std::vector<double> muscular(const std::vector<double>& ini, size_t max_fails, s
                 ++fails;
         }
     }
-    return mejor;
+    ini = mejor;
+    return f_mejor;
 }
 
 std::vector<double> generar_solucion_aleatoria(size_t dim, std::mt19937& gen) {
@@ -64,5 +67,7 @@ int main()
     size_t seed = time(NULL), dim = 10;
     std::mt19937 gen(seed);
     cec17_init("muscular", 2, dim);
-    muscular(generar_solucion_aleatoria(dim, gen), 1000, 10000*dim, gen);
+    std::vector<double> sol = generar_solucion_aleatoria(dim, gen);
+    std::cout << muscular(sol, 1000, 10000*dim, gen) << std::endl;
+    std::cout << cec17_fitness(&sol[0]) << std::endl; //remove
 }
