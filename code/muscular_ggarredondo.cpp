@@ -69,5 +69,4 @@ int main()
     cec17_init("muscular", 2, dim);
     std::vector<double> sol = generar_solucion_aleatoria(dim, gen);
     std::cout << muscular(sol, 1000, 10000*dim, gen) << std::endl;
-    std::cout << cec17_fitness(&sol[0]) << std::endl; //remove
 }
