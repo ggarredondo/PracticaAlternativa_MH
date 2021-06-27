@@ -1,1 +1,1 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/test.dir/test.cc.o  -o test  -Wl,-rpath,/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug libcec17_test_func.so 
+/usr/bin/c++   -O3 -g  -rdynamic CMakeFiles/test.dir/test.cc.o  -o test  -Wl,-rpath,/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug libcec17_test_func.so 

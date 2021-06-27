@@ -1,1 +1,1 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/testsolis.dir/testsolis.cc.o  -o testsolis  -Wl,-rpath,/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug libcec17_test_func.so 
+/usr/bin/c++   -O3 -g  -rdynamic CMakeFiles/testsolis.dir/testsolis.cc.o  -o testsolis  -Wl,-rpath,/home/rullow/PracticaAlternativa_MH/code/cmake-build-debug libcec17_test_func.so 

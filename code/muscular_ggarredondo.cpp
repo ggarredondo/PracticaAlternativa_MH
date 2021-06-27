@@ -5,12 +5,6 @@ extern "C" {
 #include <vector>
 #include <random>
 
-template <class T> // Debug function - to be removed
-void printv(std::vector<T> v) {
-	for (auto i = v.begin(); i != v.end(); ++i)
-		std::cout << *i << " ";
-}
-
 // Implementación del algoritmo muscular
 double muscular(std::vector<double>& ini, size_t max_fails, size_t max_evals, std::mt19937& gen)
 {
@@ -52,6 +46,7 @@ double muscular(std::vector<double>& ini, size_t max_fails, size_t max_evals, st
     return f_mejor;
 }
 
+// Función para generar solución aleatoria
 std::vector<double> generar_solucion_aleatoria(size_t dim, std::mt19937& gen) {
     std::vector<double> sol(dim);
     std::uniform_real_distribution<double> dis(-100,100);
@@ -64,9 +59,17 @@ std::vector<double> generar_solucion_aleatoria(size_t dim, std::mt19937& gen) {
 // Uso del algoritmo
 int main()
 {
-    size_t seed = time(NULL), dim = 10;
+    size_t seed = time(NULL);
     std::mt19937 gen(seed);
-    cec17_init("muscular", 2, dim);
-    std::vector<double> sol = generar_solucion_aleatoria(dim, gen);
-    std::cout << muscular(sol, 1000, 10000*dim, gen) << std::endl;
+    std::vector<size_t> dims = {10, 30, 50};
+    for (size_t seed = 1; seed <= 10; ++seed) { // Bucle para las 10 ejecuciones con distintas semillas
+        for (int funcid = 1; funcid <= 30; ++funcid) { // Bucle para las 30 distintas funciones posibles
+            for (auto dim = dims.begin(); dim != dims.end(); ++dim) { // Bucle para los tipos de dimensiones que se van a probar
+                cec17_init("muscular", funcid, *dim);
+                std::vector<double> sol = generar_solucion_aleatoria(*dim, gen);
+                std::cout << "F" << funcid << " & dim=" << *dim << ": " << muscular(sol, 1000, 10000 * *dim, gen)
+                          << std::endl;
+            }
+        }
+    }
 }
