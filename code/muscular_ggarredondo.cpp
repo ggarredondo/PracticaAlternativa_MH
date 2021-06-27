@@ -62,7 +62,7 @@ std::vector<double> generar_solucion_aleatoria(size_t dim, std::mt19937& gen) {
 
 
 // Uso del algoritmo
-int main() 
+int main()
 {
     size_t seed = time(NULL), dim = 10;
     std::mt19937 gen(seed);
