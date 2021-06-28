@@ -59,16 +59,18 @@ std::vector<double> generar_solucion_aleatoria(size_t dim, std::mt19937& gen) {
 // Uso del algoritmo
 int main()
 {
-    size_t seed = time(NULL);
-    std::mt19937 gen(seed);
+    std::mt19937 gen;
     std::vector<size_t> dims = {10, 30, 50};
+    double fitness;
     for (auto dim = dims.begin(); dim != dims.end(); ++dim) { // Bucle para los tipos de dimensiones que se van a probar
         for (int funcid = 1; funcid <= 30; ++funcid) { // Bucle para las 30 distintas funciones posibles
             for (size_t seed = 1; seed <= 10; ++seed) { // Bucle para las 10 ejecuciones con distintas semillas
+                gen.seed(seed);
                 cec17_init("muscular", funcid, *dim);
                 std::vector<double> sol = generar_solucion_aleatoria(*dim, gen);
-                std::cout << "F" << funcid << " & dim=" << *dim << " & seed=" << seed << ": "
-                            << muscular(sol, 1000, 10000 * *dim, gen) << std::endl;
+                fitness = muscular(sol, 1000, 10000 * *dim, gen);
+                std::cout << "F" << funcid << " & dim=" << *dim << " & seed=" << seed << ": fitness="
+                            << fitness << " & error=" << cec17_error(fitness) << std::endl;
             }
         }
     }
